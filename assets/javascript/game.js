@@ -3,46 +3,86 @@ var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
 var words = ['banana', 'apple', 'orange', 'grape', 'pear', 'kiwi', 'plum'];
 var word = words[Math.floor(Math.random() * words.length)];
 
+var wordArray = word.split("");
 var wordText = document.getElementById("wordText");
+var wordGuessesText = document.getElementById("guessCount");
+
 var lettersGuessedText = document.getElementById("lettersGuessed");
+var remainingGuesses = 10;
+var incorrectGuessesArray = [];
 
 var answerArray = [];
 
-for (var i = 0 ; i < word.length; i++){
+for (var i = 0; i < word.length; i++) {
     answerArray[i] = "_ ";
 }
 
 var remainingLetters = word.length;
 
 
-wordText.textContent = (answerArray.join (""));
+wordText.textContent = (answerArray.join(""));
 
-console.log ("word is: " + word);
-console.log ("answerArray is: " + answerArray);
+console.log("word is: " + word);
+console.log("answerArray is: " + answerArray);
 
 
 
-document.onkeyup = function(event) {
+document.onkeyup = function (event) {
 
-    while (remainingLetters > 0 ){
 
-        answerArray.join(" ");
+    var userGuessLower = event.key;
+    var guess = userGuessLower.toLowerCase();
 
-            var userGuessLower = event.key;
-            var guess = userGuessLower.toLowerCase();
+    if (letters.indexOf(guess) > -1) {
+        console.log("guess is: " + guess);
 
-            console.log ("guess is: " + guess);
+        if (incorrectGuessesArray.indexOf(guess) > -1 || answerArray.indexOf(guess) > -1){ 
+            return alert("You already guessed that letter!");
+          };
 
-            if (letters.indexOf(guess)){
-                
-                for (var j = 0; j < word.length; j++){
-                    (word[j] === guess)
-                        answerArray[j] = guess;
-                        remainingLetters--; 
-                }
-            } 
+
+        if (wordArray.indexOf(guess) > -1) {
+            for (var j = 0; j < wordArray.length; j++) {
+                if (word[j] === guess) {
+                    answerArray[j] = guess;
+
+                } 
+            }
+
+        } else {
+            remainingGuesses--;
+            incorrectGuessesArray.push(guess);
+        }
+
+        
+        wordText.textContent = answerArray.join (" ");
+        wordGuessesText.textContent = remainingGuesses
+        lettersGuessedText.textContent = incorrectGuessesArray;
+
+
+
+
+
+
+
+
+
+
     }
-}   
+
+
+
+    // if (letters.indexOf(guess) !== -1){
+
+    //     for (var j = 0; j < word.length; j++){
+    //         (word[j] === guess)
+    //             answerArray[j] = guess;
+    //             remainingLetters--; 
+    //     }
+    // } else {
+    //     alert ("Please type letters only");
+    // }
+}
 
 // while (remainingLetters > 0) {
 //     // Show the player their progress
@@ -87,7 +127,7 @@ document.onkeyup = function(event) {
 //     wordText.textContent = (answerArray.join (""));
 
 //     // 
-    
+
 //     document.onkeyup = function (event) {
 
 //         var userGuessLower = event.key;
@@ -164,7 +204,7 @@ document.onkeyup = function(event) {
 
 //             fruitLetters.push (fruitSplit ());
 //             // console.log ("The fruitLetters array now holds: "+ fruitLetters);
-            
+
 //             // fruitToGuessText.textContent = fruitToGuess;
 
 // // END FRUIT WORD SPLIT
@@ -172,7 +212,7 @@ document.onkeyup = function(event) {
 // // START PRINT FRUIT WORD AS DASHES
 
 //         function fruitDashes () {
-            
+
 //             for (var i = 0; i < fruitLetters.length; i++) {
 //                 console.log (fruitLetters[i]);
 //                 fruitDashes = fruitLetters[i]
@@ -180,32 +220,32 @@ document.onkeyup = function(event) {
 //                 return fruitLettersDashes;
 //             };
 //         }
-        
+
 //         fruitDashes ();
 
 
 // // END PRINT FRUIT WORD AS DASHES
 
-  
 
 
 
 
 
 
-  
+
+
 //   // PROCESS
-  
-  
+
+
 //         // STARTS GAME AND GENERATES A RANDOM FRUIT WITH ANY KEY PRESS
-        
+
 //         // document.onkeyup = function(event) {
 
 //         //     var startGame = event.key;
 //         //     var fruitToGuessText = document.getElementById("fruitToGuess");
 
 //         //         if (startGame === event.key){
-                    
+
 //         //                 console.log ("Key pressed was: " + startGame);
 //         //                 console.log ("Variable fruitToGuess is set to: " + fruitToGuess);
 //         //                 console.log ("Variable fruitToGuessText is set to: " + fruitToGuessText);
