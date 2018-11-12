@@ -1,3 +1,10 @@
-.colLeft, .colRight {
-    background-image: url("/assets/images/fruit.jpg");
+body {
+    background-image: url("../images/fruit.jpg");
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.colMid {
+    background: #000000;
+    opacity: .6;
+    color: #ffffff;
 }
