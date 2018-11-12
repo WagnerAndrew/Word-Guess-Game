@@ -1,7 +1,9 @@
+//VARIABLES
+
 var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 var words = ['banana', 'apple', 'orange', 'grape', 'pear', 'kiwi', 'plum'];
-var word = words[Math.floor(Math.random() * words.length)];
+var word = randomWord();
 
 var wordArray = word.split("");
 var incorrectGuessesArray = [];
@@ -17,13 +19,46 @@ var remainingGuesses = 10;
 var winCount = 0;
 var lossCount = 0;
 
+//FUNCTIONS
 
 function randomWord() {
-    var randomWordGenerator = letters[Math.floor(Math.random() * letters.length)];
+    var randomWord = words[Math.floor(Math.random() * words.length)];
 
-    return randomWordGenerator;
+    return randomWord;
 };
 
+function gameWin() {
+    alert("You Won! The word was " + word + "!");
+
+    winCount++;
+    remainingGuesses = 10;
+    incorrectGuessesArray = [];
+
+    winCountText.textContent = winCount;
+    lettersGuessedText.textContent = incorrectGuessesArray;
+    wordGuessesText.textContent = remainingGuesses;
+
+    randomWord();
+    word = randomWord();
+};
+
+function gameLoss() {
+    alert("Sorry, you ran out of guesses!");
+
+    lossCount++;
+    remainingGuesses = 10;
+
+    lossCountText.textContent = lossCount;
+    lettersGuessedText.textContent = incorrectGuessesArray;
+    wordGuessesText.textContent = remainingGuesses;
+
+    randomWord();
+    word = randomWord();
+
+};
+
+
+//PROCESS
 
 for (var i = 0; i < word.length; i++) {
     answerArray[i] = "_ ";
@@ -31,11 +66,9 @@ for (var i = 0; i < word.length; i++) {
 
 var remainingLetters = word.length;
 
-
 wordText.textContent = (answerArray.join(""));
 
 document.onkeyup = function (event) {
-
 
     var userGuessLower = event.key;
     var guess = userGuessLower.toLowerCase();
@@ -64,143 +97,55 @@ document.onkeyup = function (event) {
             lettersGuessedText.textContent = incorrectGuessesArray;
         };
 
-console.log ("wordArray= "+ wordArray);
-console.log ("answerArray= "+ answerArray);
+        console.log("wordArray= " + wordArray);
+        console.log("answerArray= " + answerArray);
 
 
-        
-        if (wordArray.toString() === answerArray.toString ()) {
 
-            
-
-console.log ("wordArray AFTER WIN= "+ wordArray);
-console.log ("answerArray AFTER WIN= "+ answerArray)  ; 
-
-            winCount++;
-            winCountText.textContent = winCount;
-            wordArray = [];
-            remainingGuesses = 10;
-            wordGuessesText.textContent = remainingGuesses;
-            incorrectGuessesArray = [];
-            lettersGuessedText.textContent = incorrectGuessesArray;
+        if (wordArray.toString() === answerArray.toString()) {
+            gameWin();
         };
 
+
         if (remainingGuesses === 0) {
-            lossCount++;
-            lossCountText.textContent = lossCount;
-            remainingGuesses = 10;
-            wordGuessesText.textContent = remainingGuesses;
-            incorrectGuessesArray = [];
+            gameLoss();
         };
     }
 }
 
 
+                // function gameWin (){
+                //     alert ("You Won! The word was " + word + "!");
+
+                //     randomWord ();
+                //     word = randomWord ();
+
+                //     winCount++;
+                //     remainingGuesses = 10;
+
+                //     incorrectGuessesArray = [];
+                //     answerArray = [];
+
+                //     winCountText.textContent = winCount;
+                //     wordGuessesText.textContent = remainingGuesses;
+                //     lettersGuessedText.textContent = incorrectGuessesArray;
+                // };
 
 
+                // function gameLoss (){
+                //     alert ("Sorry, you ran out of guesses!");
 
+                //     randomWord ();
+                //     word = randomWord ();
 
+                //     lossCount++;
+                //     remainingGuesses = 10;
 
-// var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+                //     incorrectGuessesArray = [];
+                //     answerArray = [];
 
-// var words = ['banana', 'apple', 'orange', 'grape', 'pear', 'kiwi', 'plum'];
-// var word = words[Math.floor(Math.random() * words.length)];
+                //     lossCountText.textContent = lossCount;
+                //     wordGuessesText.textContent = remainingGuesses;
+                //     lettersGuessedText.textContent = incorrectGuessesArray;
 
-// var wordArray = word.split("");
-// var incorrectGuessesArray = [];
-// var answerArray = [];
-
-// var wordText = document.getElementById("wordText");
-// var wordGuessesText = document.getElementById("guessCount");
-// var lettersGuessedText = document.getElementById("lettersGuessed");
-// var winCountText = document.getElementById("winCount");
-// var lossCountText = document.getElementById("lossCount");
-
-// var remainingGuesses = 10;
-// var winCount = 0;
-// var lossCount = 0;
-
-
-// function randomWord() {
-//     var randomWordGenerator = letters[Math.floor(Math.random() * letters.length)];
-
-//     return randomWordGenerator;
-// };
-
-
-// for (var i = 0; i < word.length; i++) {
-//     answerArray[i] = "_ ";
-// }
-
-// var remainingLetters = word.length;
-
-
-// wordText.textContent = (answerArray.join(""));
-
-// console.log("word is: " + word);
-// console.log("wordArray is: " + wordArray);
-// console.log("answerArray is: " + answerArray);
-
-// document.onkeyup = function (event) {
-
-
-//     var userGuessLower = event.key;
-//     var guess = userGuessLower.toLowerCase();
-
-//     if (letters.indexOf(guess) > -1) {
-//         console.log("guess is: " + guess);
-
-//         if (incorrectGuessesArray.indexOf(guess) > -1 || answerArray.indexOf(guess) > -1) {
-//             return alert("You already guessed that letter!");
-//         };
-
-
-//         if (wordArray.indexOf(guess) > -1) {
-//             for (var j = 0; j < wordArray.length; j++) {
-//                 if (word[j] === guess) {
-//                     answerArray[j] = guess;
-//                     remainingGuesses--;
-//                 }
-//             }
-
-//         } else {
-//             remainingGuesses--;
-//             incorrectGuessesArray.push(guess);
-//         }
-
-//         wordText.textContent = answerArray.join(" ");
-//         wordGuessesText.textContent = remainingGuesses
-//         lettersGuessedText.textContent = incorrectGuessesArray;
-
-//         console.log("answerArray after guess is: " + answerArray);
-//         console.log("wordArray after guess is: " + wordArray);
-
-//         if (wordArray === answerArray) {
-//             winCount++;
-
-//             wordArray = [];
-//             remainingGuesses = 10;
-//             wordGuessesText.textContent = remainingGuesses;
-//             incorrectGuessesArray = [];
-//             lettersGuessedText.textContent = incorrectGuessesArray;
-//         } 
-
-
-
-
-//         else {
-
-
-
-//             if (remainingGuesses === 0) {
-//                 lossCount++;
-//                 lossCountText.textContent = lossCount;
-//                 remainingGuesses = 10;
-//                 wordGuessesText.textContent = remainingGuesses;
-//                 incorrectGuessesArray = [];
-//             }
-//         }
-//     }
-
-
-// }
+                // };
