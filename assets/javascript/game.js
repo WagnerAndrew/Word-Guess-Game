@@ -2,7 +2,7 @@
 
 var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-var words = ['banana', 'apple', 'orange', 'grape', 'pear', 'kiwi', 'plum'];
+var words = ['banana', 'grape','kiwi', 'apple', 'pear', 'plum', 'watermelon', 'pineapple', 'guava', 'mango'];
 var word = randomWord();
 
 var wordArray = word.split("");
@@ -32,6 +32,7 @@ function gameWin() {
 
     winCount++;
     remainingGuesses = 10;
+
     incorrectGuessesArray = [];
 
     winCountText.textContent = winCount;
@@ -40,6 +41,17 @@ function gameWin() {
 
     randomWord();
     word = randomWord();
+
+    wordArray = word.split("");
+    answerArray = [];
+
+    for (var i = 0; i < word.length; i++) {
+        answerArray[i] = "_ ";
+    }
+    
+    var remainingLetters = word.length;
+    
+    wordText.textContent = (answerArray.join(""));
 };
 
 function gameLoss() {
@@ -48,12 +60,25 @@ function gameLoss() {
     lossCount++;
     remainingGuesses = 10;
 
+    incorrectGuessesArray = [];
+
     lossCountText.textContent = lossCount;
     lettersGuessedText.textContent = incorrectGuessesArray;
     wordGuessesText.textContent = remainingGuesses;
 
     randomWord();
     word = randomWord();
+
+    wordArray = word.split("");
+    answerArray = [];
+
+    for (var i = 0; i < word.length; i++) {
+        answerArray[i] = "_ ";
+    }
+    
+    var remainingLetters = word.length;
+    
+    wordText.textContent = (answerArray.join(""));
 
 };
 
@@ -84,7 +109,6 @@ document.onkeyup = function (event) {
             for (var j = 0; j < wordArray.length; j++) {
                 if (word[j] === guess) {
                     answerArray[j] = guess;
-                    remainingGuesses--;
                     wordGuessesText.textContent = remainingGuesses
                     wordText.textContent = answerArray.join(" ");
                 }
