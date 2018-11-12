@@ -69,7 +69,7 @@ console.log ("answerArray= "+ answerArray);
 
 
         
-        if (wordArray === answerArray) {
+        if (wordArray.toString() === answerArray.toString ()) {
 
             
 
